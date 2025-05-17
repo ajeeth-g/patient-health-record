@@ -1,0 +1,17 @@
+# Ignore node_modules in all folders
+**/node_modules/
+
+# Ignore environment variables
+**/.env
+
+# Ignore build artifacts
+client/build/
+server/dist/
+
+# Ignore logs
+*.log
+
+# IDE & system files
+.vscode/
+.idea/
+.DS_Store

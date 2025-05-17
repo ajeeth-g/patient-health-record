@@ -45,19 +45,36 @@ patient-health-record/
 ### Installation and Setup
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/yourusername/patient-health-record.git
    cd patient-health-record
    ```
 
-cd server
-npm install
+2. Install backend dependencies:
 
-cd ../client
+```bash
+  cd server
 npm install
+```
 
+3. Install frontend dependencies:
+
+```bash
+ cd ../client
+npm install
+```
+
+4. Start the backend server:
+
+```bash
 cd server
 npm start
+```
 
+5. Start the frontend app:
+
+```bash
 cd ../client
 npm start
+```
