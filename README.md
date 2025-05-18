@@ -18,7 +18,7 @@ A full-stack web app for clinics to manage patient records easily.
 
 ## 🎥 Demo
 
-[![Watch Demo on Loom](https://cdn.loom.com/sessions/thumbnails/6b85e96858ba4c74b87213dd5e05b922-with-play.gif)](https://www.loom.com/share/6b85e96858ba4c74b87213dd5e05b922?sid=757f0894-e959-4c63-be79-585e88f11c45)
+[![Watch Demo](./assets/demo.png)](https://www.loom.com/share/6b85e96858ba4c74b87213dd5e05b922?sid=e80e5425-6b75-4ad1-9714-7d1b09b7ed28)
 
 ---
 
