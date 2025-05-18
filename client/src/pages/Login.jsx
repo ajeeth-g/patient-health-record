@@ -11,12 +11,21 @@ import { useContext, useState } from "react";
 import axios from "../api/axios";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import validateForm from "../utils/validateForm";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+
+  const validate = () => {
+    const newErrors = validateForm(data, "login");
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleLogin = async () => {
     setError(null);
@@ -32,6 +41,12 @@ const Login = () => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    await handleLogin();
+  };
+
   return (
     <Container maxWidth="xs">
       <Box
@@ -45,37 +60,43 @@ const Login = () => {
             Welcome Back! Please Log In
           </Typography>
 
-          <TextField
-            fullWidth
-            label="Email"
-            margin="normal"
-            value={data.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
-          <TextField
-            fullWidth
-            type="password"
-            label="Password"
-            margin="normal"
-            value={data.password}
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-          />
+          <form onSubmit={handleSubmit} noValidate>
+            <TextField
+              fullWidth
+              label="Email"
+              margin="normal"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+              error={!!errors.email}
+              helperText={errors.email}
+            />
+            <TextField
+              fullWidth
+              type="password"
+              label="Password"
+              margin="normal"
+              value={data.password}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+              error={!!errors.password}
+              helperText={errors.password}
+            />
 
-          {error && (
-            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-              {error}
-            </Typography>
-          )}
+            {error && (
+              <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                {error}
+              </Typography>
+            )}
 
-          <Button
-            fullWidth
-            variant="contained"
-            size="large"
-            sx={{ mt: 2, borderRadius: 2 }}
-            onClick={handleLogin}
-          >
-            Login
-          </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              size="large"
+              sx={{ mt: 2, borderRadius: 2 }}
+            >
+              Login
+            </Button>
+          </form>
 
           <Typography align="center" sx={{ mt: 2 }}>
             Don't have an account?{" "}

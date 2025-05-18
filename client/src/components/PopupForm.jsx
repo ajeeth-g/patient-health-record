@@ -19,7 +19,8 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
     prescriptionNotes: "",
   });
 
-  // Update formData when initialData changes (for edit)
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
@@ -32,7 +33,20 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
         prescriptionNotes: "",
       });
     }
+    setErrors({}); // Clear errors on open
   }, [initialData, open]);
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.age) newErrors.age = "Age is required";
+    if (formData.age < 0) newErrors.age = "Age cannot be negative";
+    if (!formData.gender) newErrors.gender = "Gender is required";
+    if (!formData.diagnosis.trim())
+      newErrors.diagnosis = "Diagnosis is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,25 +54,27 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
   };
 
   const handleSubmit = async () => {
+    if (!validate()) return;
+
     try {
       const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      let res;
       if (initialData && initialData._id) {
-        // Edit mode: PUT request
-        const res = await patientsAPI.put(`/patients/${initialData._id}`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        onSubmit(res.data);
+        res = await patientsAPI.put(
+          `/patients/${initialData._id}`,
+          formData,
+          config
+        );
       } else {
-        // Add mode: POST request
-        const res = await patientsAPI.post("/patients", formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        onSubmit(res.data);
+        res = await patientsAPI.post("/patients", formData, config);
       }
+      onSubmit(res.data);
     } catch (error) {
       console.error("Error saving patient data:", error);
       alert("Failed to save patient data.");
@@ -77,6 +93,8 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
           fullWidth
           margin="dense"
           required
+          error={!!errors.name}
+          helperText={errors.name}
         />
         <TextField
           label="Age"
@@ -88,6 +106,8 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
           margin="dense"
           required
           inputProps={{ min: 0 }}
+          error={!!errors.age}
+          helperText={errors.age}
         />
         <TextField
           label="Gender"
@@ -98,6 +118,8 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
           fullWidth
           margin="dense"
           required
+          error={!!errors.gender}
+          helperText={errors.gender}
         >
           <MenuItem value="Male">Male</MenuItem>
           <MenuItem value="Female">Female</MenuItem>
@@ -111,6 +133,8 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
           fullWidth
           margin="dense"
           required
+          error={!!errors.diagnosis}
+          helperText={errors.diagnosis}
         />
         <TextField
           label="Prescription Notes"

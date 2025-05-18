@@ -1,80 +1,88 @@
-# Patient Health Record Dashboard
+# 🏥 Patient Health Record Dashboard
 
-A full-stack web application that enables clinic staff to manage patient health records efficiently.  
-Built with React (frontend), Node.js + Express (backend), and MongoDB for data storage.
-
----
-
-## Features
-
-- User registration and login with JWT authentication
-- Add new patient records with fields: Patient Name, Age, Gender, Diagnosis, Prescription Notes
-- View all patient records in a dashboard
-- Edit and delete patient records
-- Search and filter records by patient name or diagnosis
-- Basic form validation on inputs
-- Responsive and clean UI built with Material UI
+A full-stack web app for clinics to manage patient records easily.
 
 ---
 
-## Technologies Used
+## ✅ Features
 
-- **Frontend:** React, Material UI, Axios
-- **Backend:** Node.js, Express, Mongoose, JWT, bcrypt
-- **Database:** MongoDB (Atlas or local)
-- **Authentication:** JSON Web Tokens (JWT)
+- User registration and login (JWT)
+- Add, edit, delete patient records
+- Fields: Name, Age, Gender, Diagnosis, Notes
+- View all records in a dashboard
+- Search and filter records
+- Simple form validation
+- Responsive design with Material UI
 
 ---
 
-## Project Structure
+## 🛠 Technologies
 
+- **Frontend**: React, Material UI, Axios
+- **Backend**: Node.js, Express, Mongoose, JWT, bcrypt
+- **Database**: MongoDB (Local or Atlas)
+
+---
+
+## 📁 Folder Structure
+
+```bash
 patient-health-record/
-├── client/ # React frontend source code
-└── server/ # Node.js + Express backend source code
+├── client/   # React frontend
+└── server/   # Node.js backend
+```
 
 ---
 
-## Getting Started
+## 🚀 How to Run the Project
 
-### Prerequisites
+### 1. Prerequisites
 
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- npm (comes with Node.js)
-- MongoDB Atlas account or [MongoDB Community Server](https://www.mongodb.com/try/download/community) installed locally
+- **Node.js** (v14 or above)
+- **npm** (comes with Node.js)
+- **MongoDB** (local or MongoDB Atlas)
 
-### Installation and Setup
+### 2. Setup Steps
 
-1. Clone the repository
+1. **Clone the repo**
 
    ```bash
    git clone https://github.com/yourusername/patient-health-record.git
    cd patient-health-record
    ```
 
-2. Install backend dependencies:
+2. **Install backend dependencies**
 
-```bash
-  cd server
-npm install
-```
+   ```bash
+   cd server
+   npm install
+   ```
 
-3. Install frontend dependencies:
+3. **Install frontend dependencies**
 
-```bash
- cd ../client
-npm install
-```
+   ```bash
+   cd ../client
+   npm install
+   ```
 
-4. Start the backend server:
+4. **Create `.env` file in `server/`**
 
-```bash
-cd server
-npm start
-```
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongodb_uri
+   JWT_SECRET=your_secret_key
+   ```
 
-5. Start the frontend app:
+5. **Start backend**
 
-```bash
-cd ../client
-npm start
-```
+   ```bash
+   cd server
+   npx nodemon server.js
+   ```
+
+6. **Start frontend**
+
+   ```bash
+   cd client
+   npm run dev
+   ```
