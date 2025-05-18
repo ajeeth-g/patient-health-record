@@ -26,7 +26,7 @@ A full-stack web app for clinics to manage patient records easily.
 
 - **Frontend**: React, Material UI, Axios
 - **Backend**: Node.js, Express, Mongoose, JWT, bcrypt
-- **Database**: MongoDB (Local or Atlas)
+- **Database**: MongoDB Atlas
 
 ---
 
@@ -46,7 +46,7 @@ patient-health-record/
 
 - **Node.js** (v14 or above)
 - **npm** (comes with Node.js)
-- **MongoDB** (local or MongoDB Atlas)
+- **MongoDB** (MongoDB Atlas)
 
 ### 2. Setup Steps
 
@@ -54,7 +54,6 @@ patient-health-record/
 
    ```bash
    git clone https://github.com/ajeeth-g/patient-health-record.git
-   cd patient-health-record
    ```
 
 2. **Install backend dependencies**
