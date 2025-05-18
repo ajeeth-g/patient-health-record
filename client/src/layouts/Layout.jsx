@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 const DashboardLayout = ({ children }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
@@ -33,10 +34,24 @@ const DashboardLayout = ({ children }) => {
 
       <Box
         component="main"
-        sx={{ flexGrow: 1, minHeight: "100vh", backgroundColor: "#f1fdfb" }}
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden", // Add this to contain scrolling
+        }}
       >
         <Header onToggleSidebar={handleDrawerToggle} isMobile={isMobile} />
-        <Box p={isMobile ? 2 : 3}>{children}</Box>
+        <Box
+          p={isMobile ? 2 : 3}
+          sx={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );

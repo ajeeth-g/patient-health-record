@@ -11,9 +11,10 @@ import {
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
-  const drawerWidth = 200;
   const location = useLocation();
-
+  
+  const drawerWidth = 200;
+  
   const menuItems = [{ text: "Dashboard", icon: <Home />, path: "/" }];
 
   return (

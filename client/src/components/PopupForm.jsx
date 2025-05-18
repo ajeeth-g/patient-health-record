@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
-  TextField,
+  DialogContent,
+  DialogTitle,
   MenuItem,
+  TextField,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import patientsAPI from "../api/patientsAPI";
 
 const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
@@ -33,7 +33,7 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
         prescriptionNotes: "",
       });
     }
-    setErrors({}); // Clear errors on open
+    setErrors({});
   }, [initialData, open]);
 
   const validate = () => {
@@ -148,10 +148,31 @@ const PopupForm = ({ open, onClose, onSubmit, initialData }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="inherit">
+        <Button
+          onClick={onClose}
+          variant="outlined"
+          sx={{
+            fontWeight: "bold",
+            textTransform: "none",
+            "&:hover": {
+              bgcolor: "#fff",
+              borderColor: "#ff7043",
+            },
+          }}
+        >
           Cancel
         </Button>
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="primary"
+          sx={{
+            color: "#fff",
+            fontWeight: "bold",
+            textTransform: "none",
+          }}
+        >
           {initialData ? "Update" : "Add"}
         </Button>
       </DialogActions>

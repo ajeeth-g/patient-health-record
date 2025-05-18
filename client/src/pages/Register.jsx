@@ -11,12 +11,21 @@ import {
 import axios from "../api/axios";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import validateForm from "../utils/validateForm";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const Register = () => {
+  const navigate = useNavigate();
+  
   const [data, setData] = useState({ username: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
 
   const validate = () => {
     const newErrors = validateForm(data, "register");
@@ -82,13 +91,26 @@ const Register = () => {
             />
             <TextField
               fullWidth
-              type="password"
+              type={showPassword ? "text" : "password"}
               label="Password"
               margin="normal"
               value={data.password}
               onChange={(e) => setData({ ...data, password: e.target.value })}
               error={!!errors.password}
               helperText={errors.password}
+               InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                        aria-label="toggle password visibility"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
             />
 
             <Button
@@ -96,7 +118,13 @@ const Register = () => {
               fullWidth
               variant="contained"
               size="large"
-              sx={{ mt: 2, borderRadius: 2 }}
+              sx={{
+                mt: 2,
+                borderRadius: 2,
+                color: "#fff",
+                fontWeight: "bold",
+                textTransform: "none",
+              }}
             >
               Sign Up
             </Button>

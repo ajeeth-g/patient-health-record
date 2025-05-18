@@ -60,7 +60,15 @@ const Patients = ({ columns = [], data = [], onEdit, onDelete, onAdd }) => {
   };
 
   return (
-    <Box>
+    <Box
+      x={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        overflow: "hidden",
+      }}
+    >
       <Stack
         direction={{ xs: "column", sm: "row" }}
         justifyContent="space-between"
@@ -72,7 +80,7 @@ const Patients = ({ columns = [], data = [], onEdit, onDelete, onAdd }) => {
         <Button
           variant="contained"
           onClick={handleAddClick}
-          sx={{ color: "#fff", fontWeight: 600 }}
+          sx={{ color: "#fff", fontWeight: 600, textTransform: "none" }}
         >
           Add Patient
         </Button>
@@ -88,49 +96,67 @@ const Patients = ({ columns = [], data = [], onEdit, onDelete, onAdd }) => {
         fullWidth
       />
 
-      <TableContainer component={Paper} elevation={3}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map(({ header, accessor }) => (
-                <TableCell key={accessor} sx={{ fontWeight: "bold" }}>
-                  {header}
-                </TableCell>
-              ))}
-              <TableCell sx={{ fontWeight: "bold" }}>Actions</TableCell>
-            </TableRow>
-          </TableHead>
+      <TableContainer
+        component={Paper}
+        elevation={3}
+        sx={{
+          flex: 1,
+          overflow: "auto",
+          width: "100%",
+          "& .MuiTable-root": {
+            minWidth: 650,
+          },
+        }}
+      >
+        <Box
+          sx={{
+            minWidth: "fit-content", 
+            width: "100%",
+          }}
+        >
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {columns.map(({ header, accessor }) => (
+                  <TableCell key={accessor} sx={{ fontWeight: "bold" }}>
+                    {header}
+                  </TableCell>
+                ))}
+                <TableCell sx={{ fontWeight: "bold" }}>Actions</TableCell>
+              </TableRow>
+            </TableHead>
 
-          <TableBody>
-            {filteredData.length > 0 ? (
-              filteredData.map((row, rowIndex) => (
-                <TableRow key={row._id || rowIndex}>
-                  {columns.map(({ accessor }) => (
-                    <TableCell key={`${rowIndex}-${accessor}`}>
-                      {row[accessor]}
+            <TableBody>
+              {filteredData.length > 0 ? (
+                filteredData.map((row, rowIndex) => (
+                  <TableRow key={row._id || rowIndex}>
+                    {columns.map(({ accessor }) => (
+                      <TableCell key={`${rowIndex}-${accessor}`}>
+                        {row[accessor]}
+                      </TableCell>
+                    ))}
+                    <TableCell>
+                      <IconButton onClick={() => handleEditClick(row)}>
+                        <Edit />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => handleDeleteClick(row._id || rowIndex)}
+                      >
+                        <Delete color="error" />
+                      </IconButton>
                     </TableCell>
-                  ))}
-                  <TableCell>
-                    <IconButton onClick={() => handleEditClick(row)}>
-                      <Edit />
-                    </IconButton>
-                    <IconButton
-                      onClick={() => handleDeleteClick(row._id || rowIndex)}
-                    >
-                      <Delete color="error" />
-                    </IconButton>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length + 1} align="center">
+                    No results found.
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length + 1} align="center">
-                  No results found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              )}
+            </TableBody>
+          </Table>
+        </Box>
       </TableContainer>
 
       <PopupForm

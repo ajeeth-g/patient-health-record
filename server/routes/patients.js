@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Patient = require("../models/Patient");
 
-// Get all patients
+// Get all patient records
 router.get("/", auth, async (req, res) => {
   try {
     const patients = await Patient.find().sort({ createdAt: -1 });

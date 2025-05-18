@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import DashboardLayout from "./layouts/Layout";
 import Login from "./pages/Login";

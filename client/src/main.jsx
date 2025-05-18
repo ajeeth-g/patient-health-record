@@ -1,9 +1,8 @@
-// src/main.jsx
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 const theme = createTheme({

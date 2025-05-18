@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 const Header = ({ onToggleSidebar, isMobile }) => {
   const { logout } = useContext(AuthContext);
-
   const navigate = useNavigate();
+
 
   const handleLogout = () => {
     logout();
